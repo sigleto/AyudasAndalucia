@@ -6,17 +6,35 @@ import {
   Text,
   StyleSheet,
   Alert,
+  TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  Home: undefined;
+  InformeGarantiaViviendaJoven: {
+    edad: string;
+    empadronado: string;
+    precioVivienda: string;
+    certificacionEnergetica: string;
+    importeEstimado: string;
+  };
+};
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const SimuladorGarantiaViviendaJoven: React.FC = () => {
   const [edad, setEdad] = useState<string>("");
   const [empadronado, setEmpadronado] = useState<string>("");
   const [precioVivienda, setPrecioVivienda] = useState<string>("");
-  const [certificacionEnergetica, setCertificacionEnergetica] = useState<string>("");
+  const [certificacionEnergetica, setCertificacionEnergetica] =
+    useState<string>("");
   const [importeEstimado, setImporteEstimado] = useState<string>("");
+  const [cumpleRequisitos, setCumpleRequisitos] = useState<boolean>(false);
+
+  const navigation = useNavigation<NavigationProp>();
 
   const handleSimulacion = () => {
-    // Validar campos
     if (!edad || !empadronado || !precioVivienda || !certificacionEnergetica) {
       Alert.alert("Error", "Por favor, completa todos los campos.");
       return;
@@ -30,19 +48,19 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
       return;
     }
 
-    // Verificar requisitos
-    let precioMaximo = 295240; // Precio máximo base de la vivienda
+    let precioMaximo = 295240;
     if (
       certificacionEnergetica.toLowerCase() === "a" ||
       certificacionEnergetica.toLowerCase() === "b"
     ) {
-      precioMaximo = 354288; // Precio máximo ampliado para certificación energética A o B
+      precioMaximo = 354288;
     }
 
     if (edadNum < 18 || edadNum > 40) {
       setImporteEstimado(
         "No cumples con los requisitos. La edad debe estar entre 18 y 40 años."
       );
+      setCumpleRequisitos(false);
       return;
     }
 
@@ -50,6 +68,7 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
       setImporteEstimado(
         "No cumples con los requisitos. Debes estar empadronado en un municipio de Andalucía."
       );
+      setCumpleRequisitos(false);
       return;
     }
 
@@ -57,19 +76,28 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
       setImporteEstimado(
         `No cumples con los requisitos. El precio de la vivienda no puede superar los ${precioMaximo} €.`
       );
+      setCumpleRequisitos(false);
       return;
     }
 
-    // Calcular aval y financiación
-    const aval = precioNum * 0.15; // Aval del 15%
-    const financiacionTotal = precioNum * 0.95; // Financiación total del 95%
+    const aval = precioNum * 0.15;
+    const financiacionTotal = precioNum * 0.95;
 
     setImporteEstimado(
       `Cumples con los requisitos. Aval estimado: ${aval.toFixed(
         2
       )} €. Financiación total posible: ${financiacionTotal.toFixed(2)} €.`
     );
+    setCumpleRequisitos(true);
   };
+
+  React.useEffect(() => {
+    Alert.alert(
+      "Aviso importante",
+      "Este simulador es una herramienta orientativa y no contempla necesariamente todos los requisitos o condiciones específicos aplicables a cada caso particular. Por tanto, el resultado obtenido no es vinculante ni garantiza la concesión de la ayuda.\n\nPara obtener información oficial y confirmar tu situación, es imprescindible consultar con el organismo competente o acudir a las fuentes oficiales correspondientes.",
+      [{ text: "Entendido" }]
+    );
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -103,9 +131,7 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
         style={styles.input}
       />
 
-      <Text>
-        Certificación energética de la vivienda (A/B/No aplica):
-      </Text>
+      <Text>Certificación energética de la vivienda (A/B/No aplica):</Text>
       <TextInput
         value={certificacionEnergetica}
         onChangeText={(text) => setCertificacionEnergetica(text.trim())}
@@ -116,11 +142,32 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
       <Button title="Simular" onPress={handleSimulacion} />
 
       {importeEstimado ? (
-        <Text style={styles.result}>{importeEstimado}</Text>
+        <>
+          <Text style={styles.result}>{importeEstimado}</Text>
+
+          {cumpleRequisitos && (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("InformeGarantiaViviendaJoven", {
+                  edad,
+                  empadronado,
+                  precioVivienda,
+                  certificacionEnergetica,
+                  importeEstimado,
+                })
+              }
+              style={styles.boton}
+            >
+              <Text style={styles.botonTexto}>Generar Informe PDF</Text>
+            </TouchableOpacity>
+          )}
+        </>
       ) : null}
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -150,6 +197,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     color: "#4caf50",
+  },
+  boton: {
+    backgroundColor: "#007BFF",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 20,
+    alignSelf: "center",
+  },
+  botonTexto: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

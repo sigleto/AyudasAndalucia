@@ -62,10 +62,11 @@ const SimuladorBecasSegundaOportunidad: React.FC = () => {
     }
   };
 
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
-      "Este simulador es una herramienta orientativa y no garantiza la concesión de la beca. Consulta con el organismo competente.",
+      "Este simulador es una herramienta orientativa y no contempla necesariamente todos los requisitos o condiciones específicos aplicables a cada caso particular. Por tanto, el resultado obtenido no es vinculante ni garantiza la concesión de la ayuda.\n\nPara obtener información oficial y confirmar tu situación, es imprescindible consultar con el organismo competente o acudir a las fuentes oficiales correspondientes.",
       [{ text: "Entendido" }]
     );
   }, []);
@@ -138,7 +139,7 @@ const SimuladorBecasSegundaOportunidad: React.FC = () => {
             </TouchableOpacity>
           )}
           <TouchableOpacity
-            onPress={() => navigation.navigate("Home" as never)}
+            onPress={() => navigation.navigate("Home")}
             style={styles.boton}
           >
             <Text style={styles.letra}>VOLVER</Text>

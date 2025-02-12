@@ -6,16 +6,32 @@ import {
   Text,
   StyleSheet,
   Alert,
+  TouchableOpacity,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+type RootStackParamList = {
+  Home: undefined;
+  InformePrestacionesDiscapacidad: {
+    discapacidad: string;
+    residencia: string;
+    renta: string;
+    importeEstimado: string;
+  };
+};
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const SimuladorPrestacionesDiscapacidad: React.FC = () => {
   const [discapacidad, setDiscapacidad] = useState<string>("");
   const [residencia, setResidencia] = useState<string>("");
   const [renta, setRenta] = useState<string>("");
   const [importeEstimado, setImporteEstimado] = useState<string>("");
+  const [cumpleRequisitos, setCumpleRequisitos] = useState<boolean>(false);
+
+  const navigation = useNavigation<NavigationProp>();
 
   const handleSimulacion = () => {
-    // Validar campos
     if (!discapacidad || !residencia || !renta) {
       Alert.alert("Error", "Por favor, completa todos los campos.");
       return;
@@ -29,13 +45,11 @@ const SimuladorPrestacionesDiscapacidad: React.FC = () => {
       return;
     }
 
-    // Verificar requisitos
     if (
       discapacidadNum >= 33 &&
       residencia.toLowerCase() === "si" &&
       rentaNum <= 1.25
     ) {
-      // Calcular importe estimado (ejemplo simplificado)
       let importe = 0;
       if (discapacidadNum >= 65) {
         importe += 1200; // Prótesis auditivas
@@ -46,10 +60,20 @@ const SimuladorPrestacionesDiscapacidad: React.FC = () => {
       importe += rentaNum > 1 ? 750 : 6000; // Productos tecnológicos o vehículos
 
       setImporteEstimado(`Cumples los requisitos. Importe estimado: ${importe}€.`);
+      setCumpleRequisitos(true);
     } else {
       setImporteEstimado("No cumples con los requisitos para esta ayuda.");
+      setCumpleRequisitos(false);
     }
   };
+
+  React.useEffect(() => {
+    Alert.alert(
+      "Aviso importante",
+      "Este simulador es una herramienta orientativa y no contempla necesariamente todos los requisitos o condiciones específicos aplicables a cada caso particular. Por tanto, el resultado obtenido no es vinculante ni garantiza la concesión de la ayuda.\n\nPara obtener información oficial y confirmar tu situación, es imprescindible consultar con el organismo competente o acudir a las fuentes oficiales correspondientes.",
+      [{ text: "Entendido" }]
+    );
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -84,7 +108,25 @@ const SimuladorPrestacionesDiscapacidad: React.FC = () => {
       <Button title="Simular" onPress={handleSimulacion} />
 
       {importeEstimado ? (
-        <Text style={styles.result}>{importeEstimado}</Text>
+        <>
+          <Text style={styles.result}>{importeEstimado}</Text>
+
+          {cumpleRequisitos && (
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("InformePrestacionesDiscapacidad", {
+                  discapacidad,
+                  residencia,
+                  renta,
+                  importeEstimado,
+                })
+              }
+              style={styles.boton}
+            >
+              <Text style={styles.botonTexto}>Generar Informe PDF</Text>
+            </TouchableOpacity>
+          )}
+        </>
       ) : null}
     </View>
   );
@@ -92,32 +134,47 @@ const SimuladorPrestacionesDiscapacidad: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    backgroundColor: "#f2f2f2",
     flex: 1,
+    padding: 20,
+    backgroundColor: "#f8f9fa",
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    marginBottom: 20,
     color: "#2a9d8f",
     textAlign: "center",
+    marginBottom: 20,
   },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
     marginBottom: 15,
-    padding: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     fontSize: 16,
     borderRadius: 5,
-    backgroundColor: "#fff",
   },
   result: {
     marginTop: 20,
     fontSize: 18,
     fontWeight: "bold",
+    color: "#333",
     textAlign: "center",
-    color: "#4caf50",
+  },
+  boton: {
+    backgroundColor: "#007BFF",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 20,
+    alignSelf: "center",
+  },
+  botonTexto: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
   },
 });
 

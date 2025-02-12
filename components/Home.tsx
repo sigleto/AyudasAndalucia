@@ -9,11 +9,12 @@ type RootDrawerParamList = {
   Home: undefined;
   ListadoAyudas: undefined;
   FormularioGeneral: undefined;
+  AyudasStack: undefined;
 };
 
 type HomeScreenNavigationProp = DrawerNavigationProp<
   RootDrawerParamList,
-  "Home" | "FormularioGeneral"
+  "Home" | "FormularioGeneral"|"ListadoAyudas"
 >;
 
 const Home: React.FC = () => {
@@ -36,7 +37,7 @@ const Home: React.FC = () => {
         style={styles.logo}
       />
       <Image
-        source={require("../assets/images/icono.png")}
+        source={require("../assets/images/Icono4.png")}
         style={styles.burocraciaImage}
       />
 

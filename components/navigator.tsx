@@ -73,6 +73,18 @@ import SimuladorAyudasAlquiler from "./Simuladores/SimuladorAyudasAlquiler";
 import SimuladorGarantiaViviendaJoven from "./Simuladores/SimuladorGarantiaViviendaJoven";
 import SimuladorRehabilitacionVivienda from "./Simuladores/SimuladorRehabilitacionVivienda";
 
+//Informes
+import InformeAyudasAgricultores from "./Informes/InformeAyudasAgricultores";
+import InformeAyudasContratacionCuidadores from "./Informes/InformeAyudasContratacionCuidadores";
+import InformeAyudasEmigrantesRetornados from "./Informes/InformeAyudasEmigrantesRetornados";
+import InformeAyudasSectoriales from "./Informes/InformeAyudasSectoriales";
+import InformeAyudasTrabajadoresAgrarios from "./Informes/InformeAyudasTrabajadoresAgrarios";
+import InformeBecasSegundaOportunidad from "./Informes/InformeBecasSegundaOportunidad";
+import InformeGarantiaViviendaJoven from "./Informes/InformeGarantiaViviendaJoven";
+import InformePrestacionesDiscapacidad from "./Informes/InformePrestacionesDiscapacidad";
+import InformeRentaMinima from "./Informes/InformeRentaMinima";
+import InformeSubvencionesAutonomos from "./Informes/InformeSubvencionesAutonomos";
+import InformeSubvencionesDiscapacidad from "./Informes/InformeSubvencionesDiscapacidad";
 
 enableScreens();
 
@@ -140,7 +152,18 @@ export function AyudasStack() {
     <Stack.Screen name="SimuladorAyudasAlquiler" component={SimuladorAyudasAlquiler} options={{ headerShown: false }} />
     <Stack.Screen name="SimuladorGarantiaViviendaJoven" component={SimuladorGarantiaViviendaJoven} options={{ headerShown: false }} />
     <Stack.Screen name="SimuladorRehabilitacionVivienda" component={SimuladorRehabilitacionVivienda} options={{ headerShown: false }} />
- 
+    
+    <Stack.Screen name="InformeAyudasAgricultores" component={InformeAyudasAgricultores} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeAyudasContratacionCuidadores" component={InformeAyudasContratacionCuidadores} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeAyudasEmigrantesRetornados" component={InformeAyudasEmigrantesRetornados} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeAyudasSectoriales" component={InformeAyudasSectoriales} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeAyudasTrabajadoresAgrarios" component={InformeAyudasTrabajadoresAgrarios} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeBecasSegundaOportunidad" component={InformeBecasSegundaOportunidad} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeGarantiaViviendaJoven" component={InformeGarantiaViviendaJoven} options={{ headerShown: false }} />
+    <Stack.Screen name="InformePrestacionesDiscapacidad" component={InformePrestacionesDiscapacidad} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeRentaMinima" component={InformeRentaMinima} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeSubvencionesAutonomos" component={InformeSubvencionesAutonomos} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeSubvencionesDiscapacidad" component={InformeSubvencionesDiscapacidad} options={{ headerShown: false }} />
     
     
     </Stack.Navigator>
@@ -174,6 +197,21 @@ export function FormularioGeneralStack() {
     <Stack.Screen name="SimuladorAyudasAlquiler" component={SimuladorAyudasAlquiler} options={{ headerShown: false }} />
     <Stack.Screen name="SimuladorGarantiaViviendaJoven" component={SimuladorGarantiaViviendaJoven} options={{ headerShown: false }} />
     <Stack.Screen name="SimuladorRehabilitacionVivienda" component={SimuladorRehabilitacionVivienda} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeAyudasAgricultores" component={InformeAyudasAgricultores} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeAyudasContratacionCuidadores" component={InformeAyudasContratacionCuidadores} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeAyudasEmigrantesRetornados" component={InformeAyudasEmigrantesRetornados} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeAyudasSectoriales" component={InformeAyudasSectoriales} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeAyudasTrabajadoresAgrarios" component={InformeAyudasTrabajadoresAgrarios} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeBecasSegundaOportunidad" component={InformeBecasSegundaOportunidad} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeGarantiaViviendaJoven" component={InformeGarantiaViviendaJoven} options={{ headerShown: false }} />
+    <Stack.Screen name="InformePrestacionesDiscapacidad" component={InformePrestacionesDiscapacidad} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeRentaMinima" component={InformeRentaMinima} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeSubvencionesAutonomos" component={InformeSubvencionesAutonomos} options={{ headerShown: false }} />
+    <Stack.Screen name="InformeSubvencionesDiscapacidad" component={InformeSubvencionesDiscapacidad} options={{ headerShown: false }} />
+    
+    
+    
+    
     </Stack.Navigator>
   );
 }
