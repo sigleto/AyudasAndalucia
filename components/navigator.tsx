@@ -226,7 +226,7 @@ export function PrincipalStack() {
       />
       <Stack.Screen
         name="ListadoAyudas"
-        component={ListadoDeAyudas}
+        component={AyudasStack}
         options={{ headerShown: false }}
       />
 

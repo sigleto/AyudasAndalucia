@@ -19,7 +19,7 @@ const Presentacion1: React.FC = () => {
     <View style={styles.container}>
       <View>
         <Text style={styles.parrafo}>
-          {`¡Bienvenidos a 'Ayudas Públicas'! Nuestra aplicación ofrece información y servicios exclusivamente sobre ayudas y subvenciones estatales. No se incluye información sobre ayudas de ámbito autonómico o local.
+          {`¡Bienvenidos a 'Ayudas Públicas Andalucía'! Nuestra aplicación ofrece información y servicios exclusivamente sobre ayudas y subvenciones ofertados por la Comunidad Autónoma de Andalucía. No se incluye información sobre ayudas de ámbito estatal o local.
 
 En algunas ayudas, disponemos de simuladores orientativos diseñados para ayudarte a comprobar si podrías cumplir los requisitos para su concesión. Ten en cuenta que estos simuladores son solo aproximaciones y no garantizan la adjudicación de la ayuda.`}
         </Text>
