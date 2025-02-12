@@ -83,15 +83,7 @@ const ProgramaAndaluciaEmprende: React.FC = () => {
           También puedes descargar el formulario y presentarlo presencialmente.
         </Text>
 
-        <Text style={styles.subtitle}>Simulador de Ayudas</Text>
-        <Text style={styles.content}>
-          Comprueba qué servicios o recursos pueden ser útiles para tu proyecto
-          con nuestro simulador:
-        </Text>
-        <Button
-          title="Acceder al Simulador"
-          onPress={() => navigation.navigate("SimuladorAndaluciaEmprende")}
-        />
+       
       </View>
     </ScrollView>
   );

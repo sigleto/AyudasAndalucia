@@ -23,20 +23,39 @@ export const categories: Categoria[] = [
     ayudas: [
       {
         name: "",
-        simulador: ["SimuladorBecaGeneral"],
+        simulador: [""],
       },
       {
-        name: "Beca general",
-        simulador: ["SimuladorBecaGeneral"],
+        name: "Beca Adriano",
+        simulador: ["SimuladorBecaAdriano"],
       },
       {
-        name: "Beca por apoyo educativo especial",
-        simulador: ["SimuladorBecaApoyoEducativo"],
+        name: "Beca 6000",
+        simulador: ["SimuladorBeca6000"],
+      },
+     
+    ],
+  },
+  {
+    category: "Ayudas para emprendedores",
+    ayudas: [
+      {
+        name: "",
+        simulador: [""],
       },
       {
-        name: "Beca por residencia",
-        simulador: ["SimuladorBecaResidencia"],
+        name: "Programa Cuota Cero",
+        simulador: ["SimuladorCuotaCero"],
       },
+      {
+        name: "Programa EmpleaT",
+        simulador: ["SimuladorEmpleaT"],
+      },
+      {
+        name: "Subvenciones Trabajo Autónomo",
+        simulador: ["SimuladorSubvencionesAutonomos"],
+      },
+     
     ],
   },
   {
@@ -47,12 +66,37 @@ export const categories: Categoria[] = [
         simulador: [""],
       },
       {
-        name: "Ingreso Mínimo Vital",
-        simulador: ["SimuladorIngresoMinimoVital"],
+        name: "Ayuda de emergencia social",
+        simulador: ["SimuladorAyudasEmergencia"],
       },
       {
-        name: "Ley de dependencia",
-        simulador: ["SimuladorLeyDeDependencia"],
+        name: "Programas de solidaridad alimentaria",
+        simulador: ["SimuladorSolidaridadAlimentaria"],
+      },
+      {
+        name: "Renta Minima de Reinserción",
+        simulador: ["SimuladoRentaMinima"],
+      },
+    ],
+  },
+  {
+    category: "Ayudas al desempleo",
+    ayudas: [
+      {
+        name: "",
+        simulador: [""],
+      },
+      {
+        name: "Beca segunda oportunidad",
+        simulador: ["SimuladorBecasSegundaOportunidad"],
+      },
+      {
+        name: "Emigrantes retornados",
+        simulador: ["SimuladorAyudasEmigrantesRetornados"],
+      },
+      {
+        name: "Trabajadores Agrarios",
+        simulador: ["SimuladorAyudasTrabajadoresAgrarios"],
       },
     ],
   },
@@ -64,17 +108,17 @@ export const categories: Categoria[] = [
         simulador: [""],
       },
       {
-        name: "Ayuda por nacimiento o adopción",
-        simulador: ["SimuladorAyudaNacimiento"],
+        name: "Ayuda por partos múltiples",
+        simulador: ["SimuladorAyudaPartosMultiples"],
       },
       {
-        name: "Prestación por hijos con discapacidad",
-        simulador: ["SimuladorPrestacionHijoDiscapacidad"],
+        name: "Ayudas para guarderia",
+        simulador: ["SimuladorAyudasGuarderia"],
       },
 
       {
-        name: "Complemento de ayuda a la infancia",
-        simulador: ["SimuladorComplementoAyudaInfancia"],
+        name: "Bono Carestía",
+        simulador: ["SimuladorBonoCarestia"],
       },
     ],
   },
@@ -86,21 +130,18 @@ export const categories: Categoria[] = [
         simulador: [""],
       },
       {
-        name: "Ayuda al alquiler",
+        name: "Ayuda al alquiler de personas vulnerables",
         simulador: ["SimuladorAyudasAlquiler"],
       },
       {
-        name: "Ayuda adquisición para jóvenes",
-        simulador: ["SimuladorAyudaJovenesAdquisicion"],
+        name: "Programa garantía Vivienda Joven",
+        simulador: ["SimuladorGarantiaViviendaJoven"],
       },
       {
-        name: "Bono alquiler joven",
-        simulador: ["SimuladorAyudaJovenesAlquiler"],
+        name: "Programas para rehabilitacion de vivienda",
+        simulador: ["SimuladorRehabilitacionVivienda"],
       },
-      {
-        name: "Aval del 20% de la hipoteca",
-        simulador: ["SimuladorAvalHipoteca"],
-      },
+      
     ],
   },
   {
@@ -111,38 +152,36 @@ export const categories: Categoria[] = [
         simulador: [""],
       },
       {
-        name: "Pensión no contributiva",
-        simulador: ["SimuladorPensionNoContributiva"],
+        name: "Ayudas para contratación de personas cuidadoras",
+        simulador: ["SimuladorAyudasContratacionCuidadores"],
       },
       {
-        name: "Subsidio de movilidad",
-        simulador: ["SimuladorSubsidioMovilidad"],
+        name: "Prestaciones sociales por discapacidad",
+        simulador: ["SimuladorPrestacionesDiscapacidad"],
       },
       {
-        name: "Asistencia Sanitaria",
-        simulador: ["SimuladorAsistenciaSanitaria"],
+        name: "Subvenciones individuales por discapacidad",
+        simulador: ["SimuladorSubvencionesDiscapacidad"],
       },
     ],
   },
   {
-    category: "Ayudas agrícolas",
+    category: "Ayudas para Agricultura",
     ayudas: [
       {
         name: "",
         simulador: [""],
       },
       {
-        name: "Ayudas Desacopladas",
-        simulador: ["SimuladorAyudasDesacopladas"],
-      },
-      {
-        name: "Medidas de desarrollo rural",
-        simulador: ["SimuladorDesarrolloRural"],
+        name: "Ayudas para agricultores jóvenes",
+        simulador: ["SimuladorAyudasAgricultores"],
       },
       {
         name: "Medidas Sectoriales",
-        simulador: ["SimuladorMedidasSectoriales"],
+        simulador: ["SimuladorAyudasSectoriales"],
       },
+      
     ],
   },
+ 
 ];
