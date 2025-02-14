@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 const SimuladorCuotaCero: React.FC = () => {
   const [altaAutonomo, setAltaAutonomo] = useState<string>("");
   const [tarifaPlana, setTarifaPlana] = useState<string>("");
@@ -32,6 +32,72 @@ const SimuladorCuotaCero: React.FC = () => {
       return;
     }
 
+    if (
+      altaAutonomo.toUpperCase() !== "S" &&
+      altaAutonomo.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si te diste de alta como autónomo."
+      );
+      return;
+    }
+
+    if (
+      tarifaPlana.toUpperCase() !== "S" &&
+      tarifaPlana.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si solicitaste la Tarifa Plana Estatal."
+      );
+      return;
+    }
+
+    if (
+      autonomoPrevio.toUpperCase() !== "S" &&
+      autonomoPrevio.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si has sido autónomo en los últimos dos años."
+      );
+      return;
+    }
+
+    if (
+      deudas.toUpperCase() !== "S" &&
+      deudas.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si tienes deudas con la Seguridad Social o Hacienda."
+      );
+      return;
+    }
+
+    if (
+      residencia.toUpperCase() !== "S" &&
+      residencia.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si resides y desarrollas tu actividad en Andalucía."
+      );
+      return;
+    }
+
+    if (
+      pluriactividad.toUpperCase() !== "S" &&
+      pluriactividad.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre pluriactividad."
+      );
+      return;
+    }
+
     const ingresosNum = parseFloat(ingresosNetos);
 
     if (ingresosNetos && isNaN(ingresosNum)) {
@@ -41,30 +107,37 @@ const SimuladorCuotaCero: React.FC = () => {
 
     // Verificar requisitos
     if (
-      altaAutonomo.toLowerCase() === "si" &&
-      tarifaPlana.toLowerCase() === "si" &&
-      autonomoPrevio.toLowerCase() === "no" &&
-      deudas.toLowerCase() === "no" &&
-      residencia.toLowerCase() === "si" &&
-      pluriactividad.toLowerCase() === "no"
+      altaAutonomo.toUpperCase() === "S" &&
+      tarifaPlana.toUpperCase() === "S" &&
+      autonomoPrevio.toUpperCase() === "N" &&
+      deudas.toUpperCase() === "N" &&
+      residencia.toUpperCase() === "S" &&
+      pluriactividad.toUpperCase() === "N"
     ) {
-      let beneficio = "Eliminación del coste de las cotizaciones sociales durante el primer año.";
+      let beneficio =
+        "Eliminación del coste de las cotizaciones sociales durante el primer año.";
 
       // Extender bonificación al segundo año si los ingresos netos son inferiores al SMI
-      if (ingresosNetos && ingresosNum < 15600) { // SMI anual aproximado
-        beneficio += " Además, puedes extender la bonificación al segundo año.";
+      if (ingresosNetos && ingresosNum < 15600) {
+        // SMI anual aproximado
+        beneficio +=
+          " Además, puedes extender la bonificación al segundo año.";
       }
 
       // Subvenciones adicionales
-      beneficio += " También podrías optar a subvenciones adicionales de hasta 5.500 €.";
+      beneficio +=
+        " También podrías optar a subvenciones adicionales de hasta 5.500 €.";
 
-      setBeneficioEstimado(`Cumples con los requisitos. Beneficios estimados: ${beneficio}`);
+      setBeneficioEstimado(
+        `Cumples con los requisitos. Beneficios estimados: ${beneficio}`
+      );
     } else {
       setBeneficioEstimado(
         "No cumples con los requisitos para el Programa Cuota Cero."
       );
     }
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -75,53 +148,54 @@ const SimuladorCuotaCero: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador del Programa Cuota Cero</Text>
 
-      <Text>¿Te diste de alta como autónomo a partir de enero de 2023? (Sí/No):</Text>
+      <Text>¿Te diste de alta como autónomo a partir de enero de 2023? (S/N):</Text>
       <TextInput
         value={altaAutonomo}
         onChangeText={(text) => setAltaAutonomo(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Solicitaste la Tarifa Plana Estatal? (Sí/No):</Text>
+      <Text>¿Solicitaste la Tarifa Plana Estatal? (S/N):</Text>
       <TextInput
         value={tarifaPlana}
         onChangeText={(text) => setTarifaPlana(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Has sido autónomo en los últimos dos años? (Sí/No):</Text>
+      <Text>¿Has sido autónomo en los últimos dos años? (S/N):</Text>
       <TextInput
         value={autonomoPrevio}
         onChangeText={(text) => setAutonomoPrevio(text.trim())}
-        placeholder="Ejemplo: No"
+        placeholder="Ejemplo: N"
         style={styles.input}
       />
 
-      <Text>¿Tienes deudas con la Seguridad Social o Hacienda? (Sí/No):</Text>
+      <Text>¿Tienes deudas con la Seguridad Social o Hacienda? (S/N):</Text>
       <TextInput
         value={deudas}
         onChangeText={(text) => setDeudas(text.trim())}
-        placeholder="Ejemplo: No"
+        placeholder="Ejemplo: N"
         style={styles.input}
       />
 
-      <Text>¿Resides y desarrollas tu actividad en Andalucía? (Sí/No):</Text>
+      <Text>¿Resides y desarrollas tu actividad en Andalucía? (S/N):</Text>
       <TextInput
         value={residencia}
         onChangeText={(text) => setResidencia(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Estás en situación de pluriactividad o eres autónomo colaborador? (Sí/No):</Text>
+      <Text>¿Estás en situación de pluriactividad o eres autónomo colaborador? (S/N):</Text>
       <TextInput
         value={pluriactividad}
         onChangeText={(text) => setPluriactividad(text.trim())}
-        placeholder="Ejemplo: No"
+        placeholder="Ejemplo: N"
         style={styles.input}
       />
 

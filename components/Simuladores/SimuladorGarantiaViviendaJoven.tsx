@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 type RootStackParamList = {
   Home: undefined;
   InformeGarantiaViviendaJoven: {
@@ -40,6 +40,17 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
       return;
     }
 
+    if (
+      empadronado.toUpperCase() !== "S" &&
+      empadronado.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre empadronamiento."
+      );
+      return;
+    }
+
     const edadNum = parseInt(edad);
     const precioNum = parseFloat(precioVivienda);
 
@@ -50,8 +61,8 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
 
     let precioMaximo = 295240;
     if (
-      certificacionEnergetica.toLowerCase() === "a" ||
-      certificacionEnergetica.toLowerCase() === "b"
+      certificacionEnergetica.toUpperCase() === "A" ||
+      certificacionEnergetica.toUpperCase() === "B"
     ) {
       precioMaximo = 354288;
     }
@@ -64,7 +75,7 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
       return;
     }
 
-    if (empadronado.toLowerCase() !== "si") {
+    if (empadronado.toUpperCase() !== "S") {
       setImporteEstimado(
         "No cumples con los requisitos. Debes estar empadronado en un municipio de Andalucía."
       );
@@ -101,6 +112,7 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>
         Simulador del Programa de Garantía Vivienda Joven
       </Text>
@@ -114,11 +126,11 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
         style={styles.input}
       />
 
-      <Text>¿Estás empadronado en Andalucía? (Sí/No):</Text>
+      <Text>¿Estás empadronado en Andalucía? (S/N):</Text>
       <TextInput
         value={empadronado}
         onChangeText={(text) => setEmpadronado(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
@@ -166,8 +178,6 @@ const SimuladorGarantiaViviendaJoven: React.FC = () => {
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {

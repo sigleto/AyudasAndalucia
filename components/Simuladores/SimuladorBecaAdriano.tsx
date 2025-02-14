@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 const SimuladorBecaAdriano: React.FC = () => {
   const [matriculado, setMatriculado] = useState<string>("");
   const [notaMedia, setNotaMedia] = useState<string>("");
@@ -29,6 +29,50 @@ const SimuladorBecaAdriano: React.FC = () => {
       return;
     }
 
+    if (
+      matriculado.toUpperCase() !== "S" &&
+      matriculado.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si estás matriculado."
+      );
+      return;
+    }
+
+    if (
+      requisitosMEC.toUpperCase() !== "S" &&
+      requisitosMEC.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre los requisitos académicos mínimos de la beca MEC."
+      );
+      return;
+    }
+
+    if (
+      nivelEstudios.toUpperCase() !== "S" &&
+      nivelEstudios.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si posees un título del mismo nivel o superior."
+      );
+      return;
+    }
+
+    if (
+      modalidadAdultos.toUpperCase() !== "S" &&
+      modalidadAdultos.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si cursas estudios en la modalidad de educación de adultos."
+      );
+      return;
+    }
+
     const notaMediaNum = parseFloat(notaMedia);
 
     if (isNaN(notaMediaNum)) {
@@ -38,11 +82,11 @@ const SimuladorBecaAdriano: React.FC = () => {
 
     // Verificar requisitos
     if (
-      matriculado.toLowerCase() === "si" &&
+      matriculado.toUpperCase() === "S" &&
       notaMediaNum >= 5 &&
-      requisitosMEC.toLowerCase() === "no" &&
-      nivelEstudios.toLowerCase() === "no" &&
-      modalidadAdultos.toLowerCase() === "no"
+      requisitosMEC.toUpperCase() === "N" &&
+      nivelEstudios.toUpperCase() === "N" &&
+      modalidadAdultos.toUpperCase() === "N"
     ) {
       setImporteEstimado(
         `Cumples con los requisitos. Importe estimado: 1.700 € en un único pago.`
@@ -53,6 +97,7 @@ const SimuladorBecaAdriano: React.FC = () => {
       );
     }
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -63,13 +108,14 @@ const SimuladorBecaAdriano: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador de Beca Adriano</Text>
 
-      <Text>¿Estás matriculado en modalidad presencial? (Sí/No):</Text>
+      <Text>¿Estás matriculado en modalidad presencial? (S/N):</Text>
       <TextInput
         value={matriculado}
         onChangeText={(text) => setMatriculado(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
@@ -83,30 +129,30 @@ const SimuladorBecaAdriano: React.FC = () => {
       />
 
       <Text>
-        ¿Cumples con los requisitos académicos mínimos de la beca MEC? (Sí/No):
+        ¿Cumples con los requisitos académicos mínimos de la beca MEC? (S/N):
       </Text>
       <TextInput
         value={requisitosMEC}
         onChangeText={(text) => setRequisitosMEC(text.trim())}
-        placeholder="Ejemplo: No"
+        placeholder="Ejemplo: N"
         style={styles.input}
       />
 
       <Text>
-        ¿Posees un título del mismo nivel o superior al solicitado? (Sí/No):
+        ¿Posees un título del mismo nivel o superior al solicitado? (S/N):
       </Text>
       <TextInput
         value={nivelEstudios}
         onChangeText={(text) => setNivelEstudios(text.trim())}
-        placeholder="Ejemplo: No"
+        placeholder="Ejemplo: N"
         style={styles.input}
       />
 
-      <Text>¿Cursas estudios en la modalidad de educación de adultos? (Sí/No):</Text>
+      <Text>¿Cursas estudios en la modalidad de educación de adultos? (S/N):</Text>
       <TextInput
         value={modalidadAdultos}
         onChangeText={(text) => setModalidadAdultos(text.trim())}
-        placeholder="Ejemplo: No"
+        placeholder="Ejemplo: N"
         style={styles.input}
       />
 

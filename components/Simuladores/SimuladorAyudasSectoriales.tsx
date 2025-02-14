@@ -11,7 +11,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 // Definir tipos de navegación
 type RootStackParamList = {
   Home: undefined;
@@ -63,6 +63,7 @@ const SimuladorAyudasSectoriales: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <TouchableOpacity style={styles.shareIcon}>
         <MaterialCommunityIcons
           name="share-variant"

@@ -8,8 +8,10 @@ import {
   Alert,
   TouchableOpacity,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker"; // Importar Picker desde el paquete correcto
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 
 type RootStackParamList = {
   Home: undefined;
@@ -21,6 +23,7 @@ type RootStackParamList = {
     importeEstimado: string;
   };
 };
+
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const SimuladorSubvencionesDiscapacidad: React.FC = () => {
@@ -39,6 +42,11 @@ const SimuladorSubvencionesDiscapacidad: React.FC = () => {
       return;
     }
 
+    if (residencia.toUpperCase() !== "S" && residencia.toUpperCase() !== "N") {
+      Alert.alert("Error", "Responde con 'S' o 'N' en la pregunta sobre residencia.");
+      return;
+    }
+
     const discapacidadNum = parseFloat(discapacidad);
     const rentaNum = parseFloat(renta);
 
@@ -47,26 +55,22 @@ const SimuladorSubvencionesDiscapacidad: React.FC = () => {
       return;
     }
 
-    if (
-      discapacidadNum >= 33 &&
-      residencia.toLowerCase() === "si" &&
-      rentaNum <= 1.25
-    ) {
+    if (discapacidadNum >= 33 && residencia.toUpperCase() === "S" && rentaNum <= 1.25) {
       let importe = 0;
-      switch (concepto.toLowerCase()) {
-        case "adaptación de vehículos":
+      switch (concepto) {
+        case "Adaptación de vehículos":
           importe = 750;
           break;
-        case "prótesis auditivas":
+        case "Prótesis auditivas":
           importe = 1200;
           break;
-        case "prótesis dentales":
+        case "Prótesis dentales":
           importe = 600;
           break;
-        case "productos de apoyo":
+        case "Productos de apoyo":
           importe = 6000;
           break;
-        case "gastos de desplazamiento":
+        case "Gastos de desplazamiento":
           importe = 109 * 12; // Mensual multiplicado por un año
           break;
         default:
@@ -94,6 +98,7 @@ const SimuladorSubvencionesDiscapacidad: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>
         Simulador de Subvenciones Individuales por Discapacidad
       </Text>
@@ -107,11 +112,11 @@ const SimuladorSubvencionesDiscapacidad: React.FC = () => {
         style={styles.input}
       />
 
-      <Text>¿Resides en Andalucía? (Sí/No):</Text>
+      <Text>¿Resides en Andalucía? (S/N):</Text>
       <TextInput
         value={residencia}
         onChangeText={(text) => setResidencia(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
@@ -124,16 +129,19 @@ const SimuladorSubvencionesDiscapacidad: React.FC = () => {
         style={styles.input}
       />
 
-      <Text>
-        Concepto de la ayuda (Adaptación de vehículos, Prótesis auditivas,
-        Prótesis dentales, Productos de apoyo, Gastos de desplazamiento):
-      </Text>
-      <TextInput
-        value={concepto}
-        onChangeText={(text) => setConcepto(text.trim())}
-        placeholder="Ejemplo: Prótesis auditivas"
-        style={styles.input}
-      />
+      <Text>Concepto de la ayuda:</Text>
+      <Picker
+        selectedValue={concepto}
+        onValueChange={(itemValue) => setConcepto(itemValue)}
+        style={styles.picker}
+      >
+        <Picker.Item label="Selecciona un concepto" value="" />
+        <Picker.Item label="Adaptación de vehículos" value="Adaptación de vehículos" />
+        <Picker.Item label="Prótesis auditivas" value="Prótesis auditivas" />
+        <Picker.Item label="Prótesis dentales" value="Prótesis dentales" />
+        <Picker.Item label="Productos de apoyo" value="Productos de apoyo" />
+        <Picker.Item label="Gastos de desplazamiento" value="Gastos de desplazamiento" />
+      </Picker>
 
       <Button title="Simular" onPress={handleSimulacion} />
 
@@ -166,46 +174,40 @@ const SimuladorSubvencionesDiscapacidad: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: "#f8f9fa",
-    justifyContent: "center",
+    padding: 16,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#2a9d8f",
-    textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 16,
   },
   input: {
+    height: 40,
+    borderColor: "gray",
     borderWidth: 1,
-    borderColor: "#ccc",
-    marginBottom: 15,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    fontSize: 16,
-    borderRadius: 5,
+    marginBottom: 12,
+    paddingHorizontal: 8,
+  },
+  picker: {
+    height: 50,
+    width: "100%",
+    marginBottom: 12,
   },
   result: {
-    marginTop: 20,
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-    textAlign: "center",
-  },
-  boton: {
-    backgroundColor: "#007BFF",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
-    marginTop: 20,
-    alignSelf: "center",
-  },
-  botonTexto: {
-    color: "#fff",
+    marginTop: 16,
     fontSize: 16,
     fontWeight: "bold",
-    textAlign: "center",
+  },
+  boton: {
+    marginTop: 16,
+    backgroundColor: "#007BFF",
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  botonTexto: {
+    color: "#FFF",
+    fontSize: 16,
   },
 });
 

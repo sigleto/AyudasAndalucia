@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 
 const SimuladorAyudasEmergencia: React.FC = () => {
   const [residencia, setResidencia] = useState<string>("");
@@ -23,6 +24,36 @@ const SimuladorAyudasEmergencia: React.FC = () => {
       return;
     }
 
+    if (
+      residencia.toUpperCase() !== "S" &&
+      residencia.toUpperCase() !== "N"
+    ) {
+      Alert.alert("Error", "Responde con 'S' o 'N' en la pregunta sobre residencia.");
+      return;
+    }
+
+    if (
+      crisisSobrevenida.toUpperCase() !== "S" &&
+      crisisSobrevenida.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre crisis sobrevenida."
+      );
+      return;
+    }
+
+    if (
+      otraAyuda.toUpperCase() !== "S" &&
+      otraAyuda.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre acceso a otras ayudas."
+      );
+      return;
+    }
+
     const recursosNum = parseFloat(recursosEconomicos);
 
     if (isNaN(recursosNum)) {
@@ -32,10 +63,10 @@ const SimuladorAyudasEmergencia: React.FC = () => {
 
     // Verificar requisitos
     if (
-      residencia.toLowerCase() === "si" &&
-      crisisSobrevenida.toLowerCase() === "si" &&
+      residencia.toUpperCase() === "S" &&
+      crisisSobrevenida.toUpperCase() === "S" &&
       recursosNum < 600 && // Ejemplo: IPREM mensual como referencia
-      otraAyuda.toLowerCase() === "no"
+      otraAyuda.toUpperCase() === "N"
     ) {
       // Calcular importe estimado según la necesidad
       let importeBase = 0;
@@ -51,7 +82,10 @@ const SimuladorAyudasEmergencia: React.FC = () => {
           importeBase = 300; // Ejemplo: ayuda para suministros esenciales
           break;
         default:
-          Alert.alert("Error", "Selecciona una necesidad válida (vivienda, alimentación o suministros).");
+          Alert.alert(
+            "Error",
+            "Selecciona una necesidad válida (vivienda, alimentación o suministros)."
+          );
           return;
       }
 
@@ -64,6 +98,7 @@ const SimuladorAyudasEmergencia: React.FC = () => {
       );
     }
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -72,24 +107,24 @@ const SimuladorAyudasEmergencia: React.FC = () => {
     );
   }, []);
 
-  
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador de Ayudas de Emergencia Social</Text>
 
-      <Text>¿Resides y estás empadronado en Andalucía? (Sí/No):</Text>
+      <Text>¿Resides y estás empadronado en Andalucía? (S/N):</Text>
       <TextInput
         value={residencia}
         onChangeText={(text) => setResidencia(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Te encuentras en una situación de crisis sobrevenida? (Sí/No):</Text>
+      <Text>¿Te encuentras en una situación de crisis sobrevenida? (S/N):</Text>
       <TextInput
         value={crisisSobrevenida}
         onChangeText={(text) => setCrisisSobrevenida(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
@@ -102,11 +137,11 @@ const SimuladorAyudasEmergencia: React.FC = () => {
         style={styles.input}
       />
 
-      <Text>¿Tienes acceso a otras ayudas que cubran esta necesidad? (Sí/No):</Text>
+      <Text>¿Tienes acceso a otras ayudas que cubran esta necesidad? (S/N):</Text>
       <TextInput
         value={otraAyuda}
         onChangeText={(text) => setOtraAyuda(text.trim())}
-        placeholder="Ejemplo: No"
+        placeholder="Ejemplo: N"
         style={styles.input}
       />
 

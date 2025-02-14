@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 const SimuladorSolidaridadAlimentaria: React.FC = () => {
   const [residencia, setResidencia] = useState<string>("");
   const [empadronamiento, setEmpadronamiento] = useState<string>("");
@@ -29,6 +29,25 @@ const SimuladorSolidaridadAlimentaria: React.FC = () => {
       return;
     }
 
+    if (
+      residencia.toUpperCase() !== "S" &&
+      residencia.toUpperCase() !== "N"
+    ) {
+      Alert.alert("Error", "Responde con 'S' o 'N' en la pregunta sobre residencia.");
+      return;
+    }
+
+    if (
+      empadronamiento.toUpperCase() !== "S" &&
+      empadronamiento.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre empadronamiento."
+      );
+      return;
+    }
+
     const ingresosNum = parseFloat(ingresosFamiliares);
     const miembrosNum = parseInt(miembrosHogar);
     const menoresNum = parseInt(menoresEscolarizados);
@@ -40,8 +59,8 @@ const SimuladorSolidaridadAlimentaria: React.FC = () => {
 
     // Verificar requisitos
     if (
-      residencia.toLowerCase() === "si" &&
-      empadronamiento.toLowerCase() === "si" &&
+      residencia.toUpperCase() === "S" &&
+      empadronamiento.toUpperCase() === "S" &&
       ingresosNum <= miembrosNum * 600 && // Ejemplo: IPREM mensual multiplicado por número de miembros
       menoresNum <= miembrosNum
     ) {
@@ -61,6 +80,7 @@ const SimuladorSolidaridadAlimentaria: React.FC = () => {
       );
     }
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -71,23 +91,24 @@ const SimuladorSolidaridadAlimentaria: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>
         Simulador del Programa de Solidaridad y Garantía Alimentaria
       </Text>
 
-      <Text>¿Resides en Andalucía? (Sí/No):</Text>
+      <Text>¿Resides en Andalucía? (S/N):</Text>
       <TextInput
         value={residencia}
         onChangeText={(text) => setResidencia(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Estás empadronado en un municipio andaluz? (Sí/No):</Text>
+      <Text>¿Estás empadronado en un municipio andaluz? (S/N):</Text>
       <TextInput
         value={empadronamiento}
         onChangeText={(text) => setEmpadronamiento(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 

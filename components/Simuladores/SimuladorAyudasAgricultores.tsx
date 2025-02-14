@@ -12,6 +12,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 
 // Definir tipos de navegación
 type RootStackParamList = {
@@ -55,13 +56,7 @@ const SimuladorAyudasAgricultores: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
-    Alert.alert(
-      "Aviso importante",
-      "Este simulador es una herramienta orientativa y no garantiza la concesión de la ayuda. Consulta con el organismo competente.",
-      [{ text: "Entendido" }]
-    );
-  }, []);
+ 
 
   const shareApp = async () => {
     try {
@@ -83,6 +78,7 @@ const SimuladorAyudasAgricultores: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <TouchableOpacity onPress={shareApp} style={styles.shareIcon}>
         <MaterialCommunityIcons
           name="share-variant"

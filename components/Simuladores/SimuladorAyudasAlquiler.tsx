@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 
 const SimuladorAyudasAlquiler: React.FC = () => {
   const [rentaMensual, setRentaMensual] = useState<string>("");
@@ -19,6 +20,25 @@ const SimuladorAyudasAlquiler: React.FC = () => {
     // Validar campos
     if (!rentaMensual || !mayor65 || !vulnerabilidad || !ingresosFamiliares) {
       Alert.alert("Error", "Por favor, completa todos los campos.");
+      return;
+    }
+
+    if (
+      mayor65.toUpperCase() !== "S" &&
+      mayor65.toUpperCase() !== "N"
+    ) {
+      Alert.alert("Error", "Responde con 'S' o 'N' en la pregunta sobre si eres mayor de 65 años.");
+      return;
+    }
+
+    if (
+      vulnerabilidad.toUpperCase() !== "S" &&
+      vulnerabilidad.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si estás en una situación de especial vulnerabilidad."
+      );
       return;
     }
 
@@ -40,11 +60,11 @@ const SimuladorAyudasAlquiler: React.FC = () => {
 
     let porcentajeCobertura = 40; // Cobertura base del alquiler
 
-    if (mayor65.toLowerCase() === "si") {
+    if (mayor65.toUpperCase() === "S") {
       porcentajeCobertura = 50; // Cobertura para mayores de 65 años
     }
 
-    if (vulnerabilidad.toLowerCase() === "si") {
+    if (vulnerabilidad.toUpperCase() === "S") {
       porcentajeCobertura = 75; // Cobertura para situaciones de especial vulnerabilidad
     }
 
@@ -56,6 +76,7 @@ const SimuladorAyudasAlquiler: React.FC = () => {
       )} € (${porcentajeCobertura}% de la renta mensual).`
     );
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -66,6 +87,7 @@ const SimuladorAyudasAlquiler: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador de Ayudas al Alquiler</Text>
 
       <Text>Renta mensual de tu vivienda (en euros):</Text>
@@ -77,21 +99,21 @@ const SimuladorAyudasAlquiler: React.FC = () => {
         style={styles.input}
       />
 
-      <Text>¿Eres mayor de 65 años? (Sí/No):</Text>
+      <Text>¿Eres mayor de 65 años? (S/N):</Text>
       <TextInput
         value={mayor65}
         onChangeText={(text) => setMayor65(text.trim())}
-        placeholder="Ejemplo: No"
+        placeholder="Ejemplo: N"
         style={styles.input}
       />
 
       <Text>
-        ¿Te encuentras en una situación de especial vulnerabilidad? (Sí/No):
+        ¿Te encuentras en una situación de especial vulnerabilidad? (S/N):
       </Text>
       <TextInput
         value={vulnerabilidad}
         onChangeText={(text) => setVulnerabilidad(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 

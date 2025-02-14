@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 const SimuladorRehabilitacionVivienda: React.FC = () => {
   const [antiguedad, setAntiguedad] = useState<string>("");
   const [superficie, setSuperficie] = useState<string>("");
@@ -26,6 +26,17 @@ const SimuladorRehabilitacionVivienda: React.FC = () => {
       !vulnerabilidad
     ) {
       Alert.alert("Error", "Por favor, completa todos los campos.");
+      return;
+    }
+
+    if (
+      vulnerabilidad.toUpperCase() !== "S" &&
+      vulnerabilidad.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre vulnerabilidad económica."
+      );
       return;
     }
 
@@ -59,7 +70,10 @@ const SimuladorRehabilitacionVivienda: React.FC = () => {
       return;
     }
 
-    if (ingresosNum > 5.5 * 600 || (vulnerabilidad.toLowerCase() === "si" && ingresosNum > 3 * 600)) {
+    if (
+      ingresosNum > 5.5 * 600 || 
+      (vulnerabilidad.toUpperCase() === "S" && ingresosNum > 3 * 600)
+    ) {
       setImporteEstimado(
         "No cumples con los requisitos. Los ingresos familiares superan el límite establecido."
       );
@@ -67,8 +81,10 @@ const SimuladorRehabilitacionVivienda: React.FC = () => {
     }
 
     // Calcular subvención
-    let porcentajeSubvencion = vulnerabilidad.toLowerCase() === "si" ? 75 : 40; // Subvención del 75% para vulnerabilidad y 40% general
-    let maximoSubvencion = vulnerabilidad.toLowerCase() === "si" ? Infinity : 4800; // Máximo de subvención general
+    let porcentajeSubvencion =
+      vulnerabilidad.toUpperCase() === "S" ? 75 : 40; // Subvención del 75% para vulnerabilidad y 40% general
+    let maximoSubvencion =
+      vulnerabilidad.toUpperCase() === "S" ? Infinity : 4800; // Máximo de subvención general
 
     let importeSubvencion = (presupuestoNum * porcentajeSubvencion) / 100;
 
@@ -82,6 +98,7 @@ const SimuladorRehabilitacionVivienda: React.FC = () => {
       )} € (${porcentajeSubvencion}% del presupuesto protegido).`
     );
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -92,6 +109,7 @@ const SimuladorRehabilitacionVivienda: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>
         Simulador del Programa de Rehabilitación de Viviendas
       </Text>
@@ -133,12 +151,12 @@ const SimuladorRehabilitacionVivienda: React.FC = () => {
       />
 
       <Text>
-        ¿Te encuentras en una situación de vulnerabilidad económica? (Sí/No):
+        ¿Te encuentras en una situación de vulnerabilidad económica? (S/N):
       </Text>
       <TextInput
         value={vulnerabilidad}
         onChangeText={(text) => setVulnerabilidad(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 

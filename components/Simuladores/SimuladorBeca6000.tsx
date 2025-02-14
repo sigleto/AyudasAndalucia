@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 const SimuladorBeca6000: React.FC = () => {
   const [empadronado, setEmpadronado] = useState<string>("");
   const [matriculado, setMatriculado] = useState<string>("");
@@ -29,6 +29,47 @@ const SimuladorBeca6000: React.FC = () => {
       return;
     }
 
+    if (
+      empadronado.toUpperCase() !== "S" &&
+      empadronado.toUpperCase() !== "N"
+    ) {
+      Alert.alert("Error", "Responde con 'S' o 'N' en la pregunta sobre empadronamiento.");
+      return;
+    }
+
+    if (
+      matriculado.toUpperCase() !== "S" &&
+      matriculado.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre matriculación."
+      );
+      return;
+    }
+
+    if (
+      cursoAnteriorAprobado.toUpperCase() !== "S" &&
+      cursoAnteriorAprobado.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si aprobaste el curso anterior."
+      );
+      return;
+    }
+
+    if (
+      actividadLaboral.toUpperCase() !== "S" &&
+      actividadLaboral.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre actividad laboral."
+      );
+      return;
+    }
+
     const rentaNum = parseFloat(rentaFamiliar);
 
     if (isNaN(rentaNum)) {
@@ -38,11 +79,11 @@ const SimuladorBeca6000: React.FC = () => {
 
     // Verificar requisitos
     if (
-      empadronado.toLowerCase() === "si" &&
-      matriculado.toLowerCase() === "si" &&
-      cursoAnteriorAprobado.toLowerCase() === "si" &&
+      empadronado.toUpperCase() === "S" &&
+      matriculado.toUpperCase() === "S" &&
+      cursoAnteriorAprobado.toUpperCase() === "S" &&
       rentaNum <= 1.5 && // Ejemplo: umbral de renta familiar en relación al IPREM
-      actividadLaboral.toLowerCase() === "no"
+      actividadLaboral.toUpperCase() === "N"
     ) {
       setImporteEstimado(
         `Cumples con los requisitos. Importe estimado: hasta 6.000 € anuales distribuidos en pagos mensuales.`
@@ -53,6 +94,7 @@ const SimuladorBeca6000: React.FC = () => {
       );
     }
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -63,29 +105,30 @@ const SimuladorBeca6000: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador de Beca 6000</Text>
 
-      <Text>¿Estás empadronado en Andalucía? (Sí/No):</Text>
+      <Text>¿Estás empadronado en Andalucía? (S/N):</Text>
       <TextInput
         value={empadronado}
         onChangeText={(text) => setEmpadronado(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Estás matriculado del curso completo en modalidad presencial? (Sí/No):</Text>
+      <Text>¿Estás matriculado del curso completo en modalidad presencial? (S/N):</Text>
       <TextInput
         value={matriculado}
         onChangeText={(text) => setMatriculado(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Has aprobado todas las asignaturas del curso anterior? (Sí/No):</Text>
+      <Text>¿Has aprobado todas las asignaturas del curso anterior? (S/N):</Text>
       <TextInput
         value={cursoAnteriorAprobado}
         onChangeText={(text) => setCursoAnteriorAprobado(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
@@ -98,11 +141,11 @@ const SimuladorBeca6000: React.FC = () => {
         style={styles.input}
       />
 
-      <Text>¿Realizas alguna actividad laboral o estás inscrito como demandante de empleo? (Sí/No):</Text>
+      <Text>¿Realizas alguna actividad laboral o estás inscrito como demandante de empleo? (S/N):</Text>
       <TextInput
         value={actividadLaboral}
         onChangeText={(text) => setActividadLaboral(text.trim())}
-        placeholder="Ejemplo: No"
+        placeholder="Ejemplo: N"
         style={styles.input}
       />
 

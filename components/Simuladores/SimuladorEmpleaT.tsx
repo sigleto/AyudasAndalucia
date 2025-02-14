@@ -7,7 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 const SimuladorEmpleaT: React.FC = () => {
   const [tipoContratacion, setTipoContratacion] = useState<string>("");
   const [colectivo, setColectivo] = useState<string>("");
@@ -22,38 +22,68 @@ const SimuladorEmpleaT: React.FC = () => {
       return;
     }
 
+    if (
+      residencia.toUpperCase() !== "S" &&
+      residencia.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre residencia."
+      );
+      return;
+    }
+
+    if (
+      jornadaCompleta.toUpperCase() !== "S" &&
+      jornadaCompleta.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre jornada completa."
+      );
+      return;
+    }
+
     // Verificar requisitos
     if (
       tipoContratacion.toLowerCase() === "indefinida" &&
-      residencia.toLowerCase() === "si" &&
+      residencia.toUpperCase() === "S" &&
       (colectivo.toLowerCase() === "menor de 30 años" ||
         colectivo.toLowerCase() === "mayor de 45 años" ||
         colectivo.toLowerCase() === "persona con discapacidad" ||
         colectivo.toLowerCase() === "desempleado de larga duración") &&
-      jornadaCompleta.toLowerCase() === "si"
+      jornadaCompleta.toUpperCase() === "S"
     ) {
       let beneficio = "Subvención base para contratación indefinida.";
 
       // Beneficios adicionales según colectivo
       switch (colectivo.toLowerCase()) {
         case "menor de 30 años":
-          beneficio += " Incentivo adicional por contratación de jóvenes del Sistema Nacional de Garantía Juvenil.";
+          beneficio +=
+            " Incentivo adicional por contratación de jóvenes del Sistema Nacional de Garantía Juvenil.";
           break;
         case "persona con discapacidad":
-          beneficio += " Subvención adicional por fomentar la inclusión laboral de personas con discapacidad.";
+          beneficio +=
+            " Subvención adicional por fomentar la inclusión laboral de personas con discapacidad.";
           break;
         case "desempleado de larga duración":
-          beneficio += " Bonificación especial por apoyar la reinserción laboral.";
+          beneficio +=
+            " Bonificación especial por apoyar la reinserción laboral.";
           break;
         default:
           break;
       }
 
-      setBeneficioEstimado(`Cumples con los requisitos. Beneficios estimados: ${beneficio}`);
+      setBeneficioEstimado(
+        `Cumples con los requisitos. Beneficios estimados: ${beneficio}`
+      );
     } else {
-      setBeneficioEstimado("No cumples con los requisitos para el Programa Emplea-T.");
+      setBeneficioEstimado(
+        "No cumples con los requisitos para el Programa Emplea-T."
+      );
     }
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -64,6 +94,7 @@ const SimuladorEmpleaT: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador del Programa Emplea-T</Text>
 
       <Text>Tipo de contratación (Indefinida/Temporal):</Text>
@@ -84,19 +115,19 @@ const SimuladorEmpleaT: React.FC = () => {
         style={styles.input}
       />
 
-      <Text>¿Resides y desarrollas la actividad en Andalucía? (Sí/No):</Text>
+      <Text>¿Resides y desarrollas la actividad en Andalucía? (S/N):</Text>
       <TextInput
         value={residencia}
         onChangeText={(text) => setResidencia(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Es una jornada completa? (Sí/No):</Text>
+      <Text>¿Es una jornada completa? (S/N):</Text>
       <TextInput
         value={jornadaCompleta}
         onChangeText={(text) => setJornadaCompleta(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 

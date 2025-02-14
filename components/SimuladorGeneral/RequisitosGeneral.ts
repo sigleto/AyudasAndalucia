@@ -75,7 +75,7 @@ export const categories: Categoria[] = [
       },
       {
         name: "Renta Minima de Reinserción",
-        simulador: ["SimuladoRentaMinima"],
+        simulador: ["SimuladorRentaMinima"],
       },
     ],
   },
@@ -109,7 +109,7 @@ export const categories: Categoria[] = [
       },
       {
         name: "Ayuda por partos múltiples",
-        simulador: ["SimuladorAyudaPartosMultiples"],
+        simulador: ["SimuladorAyudasPartosMultiples"],
       },
       {
         name: "Ayudas para guarderia",

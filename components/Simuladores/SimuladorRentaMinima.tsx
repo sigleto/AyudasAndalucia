@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 type RootStackParamList = {
   Home: undefined;
   InformeRentaMinima: {
@@ -50,6 +50,25 @@ const SimuladorRentaMinima: React.FC = () => {
       return;
     }
 
+    if (
+      residencia.toUpperCase() !== "S" &&
+      residencia.toUpperCase() !== "N"
+    ) {
+      Alert.alert("Error", "Responde con 'S' o 'N' en la pregunta sobre residencia.");
+      return;
+    }
+
+    if (
+      denegacionIMV.toUpperCase() !== "S" &&
+      denegacionIMV.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre la denegación del IMV."
+      );
+      return;
+    }
+
     const edadNum = parseInt(edad);
     const ingresosNum = parseFloat(ingresosFamiliares);
     const miembrosNum = parseInt(miembrosHogar);
@@ -66,12 +85,12 @@ const SimuladorRentaMinima: React.FC = () => {
     }
 
     if (
-      residencia.toLowerCase() === "si" &&
+      residencia.toUpperCase() === "S" &&
       edadNum >= 25 &&
       edadNum <= 64 &&
       ingresosNum < 604.22 + (miembrosNum - 1) * (604.22 * 0.3) &&
       patrimonioNum <= 6000 &&
-      denegacionIMV.toLowerCase() === "si"
+      denegacionIMV.toUpperCase() === "S"
     ) {
       const baseCuantia = 604.22;
       const incrementoPorMiembro = baseCuantia * 0.3;
@@ -103,15 +122,16 @@ const SimuladorRentaMinima: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>
         Simulador de la Renta Mínima de Inserción Social
       </Text>
 
-      <Text>¿Resides en Andalucía y estás empadronado? (Sí/No):</Text>
+      <Text>¿Resides en Andalucía y estás empadronado? (S/N):</Text>
       <TextInput
         value={residencia}
         onChangeText={(text) => setResidencia(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
@@ -152,12 +172,12 @@ const SimuladorRentaMinima: React.FC = () => {
       />
 
       <Text>
-        ¿Has recibido una denegación del Ingreso Mínimo Vital? (Sí/No):
+        ¿Has recibido una denegación del Ingreso Mínimo Vital? (S/N):
       </Text>
       <TextInput
         value={denegacionIMV}
         onChangeText={(text) => setDenegacionIMV(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 

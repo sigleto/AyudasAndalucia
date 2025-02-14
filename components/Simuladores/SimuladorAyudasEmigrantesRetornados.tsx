@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 
 type RootStackParamList = {
   Home: undefined;
@@ -61,13 +62,7 @@ const SimuladorAyudasEmigrantesRetornados: React.FC = () => {
     }
   };
 
-  React.useEffect(() => {
-    Alert.alert(
-      "Aviso importante",
-      "Este simulador es una herramienta orientativa y no garantiza la concesión de la ayuda. Consulta con el organismo competente.",
-      [{ text: "Entendido" }]
-    );
-  }, []);
+ 
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -78,6 +73,7 @@ const SimuladorAyudasEmigrantesRetornados: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador Ayudas Emigrantes Retornados</Text>
 
       <Text>¿Has residido en el extranjero al menos 12 meses? (S/N):</Text>

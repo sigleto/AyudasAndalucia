@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-
+import AnuncioBan from "../Anuncios/AnuncioBanner"
 type RutasNavegacion =
   | "BecasSegundaOportunidad"
   | "AyudasEmigrantesRetornados"

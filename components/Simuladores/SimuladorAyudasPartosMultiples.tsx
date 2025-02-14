@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 
 const SimuladorAyudasPartosMultiples: React.FC = () => {
   const [residencia, setResidencia] = useState<string>("");
@@ -23,6 +24,25 @@ const SimuladorAyudasPartosMultiples: React.FC = () => {
       return;
     }
 
+    if (
+      residencia.toUpperCase() !== "S" &&
+      residencia.toUpperCase() !== "N"
+    ) {
+      Alert.alert("Error", "Responde con 'S' o 'N' en la pregunta de residencia.");
+      return;
+    }
+
+    if (
+      patriaPotestad.toUpperCase() !== "S" &&
+      patriaPotestad.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta de patria potestad."
+      );
+      return;
+    }
+
     const ingresosNum = parseFloat(ingresosFamiliares);
     const hijosNum = parseInt(numeroHijos);
     const menoresTresNum = parseInt(hijosMenoresTres) || 0;
@@ -34,8 +54,8 @@ const SimuladorAyudasPartosMultiples: React.FC = () => {
 
     // Verificar requisitos
     if (
-      residencia.toLowerCase() === "si" &&
-      patriaPotestad.toLowerCase() === "si" &&
+      residencia.toUpperCase() === "S" &&
+      patriaPotestad.toUpperCase() === "S" &&
       ingresosNum <= 1.5 * 600 // Ejemplo: IPREM mensual en euros
     ) {
       let beneficioBase = 0;
@@ -67,6 +87,7 @@ const SimuladorAyudasPartosMultiples: React.FC = () => {
       );
     }
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -77,21 +98,22 @@ const SimuladorAyudasPartosMultiples: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador de Ayudas por Partos Múltiples</Text>
 
-      <Text>¿Resides y estás empadronado en Andalucía? (Sí/No):</Text>
+      <Text>¿Resides y estás empadronado en Andalucía? (S/N):</Text>
       <TextInput
         value={residencia}
         onChangeText={(text) => setResidencia(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Tienes la patria potestad o guarda permanente de los menores? (Sí/No):</Text>
+      <Text>¿Tienes la patria potestad o guarda permanente de los menores? (S/N):</Text>
       <TextInput
         value={patriaPotestad}
         onChangeText={(text) => setPatriaPotestad(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 

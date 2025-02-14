@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 import { useRoute, RouteProp } from "@react-navigation/native";
+import AnuncioRecompensado from "../Anuncios/AnuncioRecompensado";
 
 type RouteParams = {
   altaRETA: string;
@@ -23,6 +24,21 @@ const InformeSubvencionesAutonomos: React.FC = () => {
     tipoProyecto,
     beneficioEstimado,
   } = route.params || {};
+
+  const [recompensaGanada, setRecompensaGanada] = useState(false);
+  const [botonActivo, setBotonActivo] = useState(false);
+
+  const manejarRecompensa = (reward: { type: string; amount: number }) => {
+    console.log(`Recompensa obtenida: ${reward.type}, cantidad: ${reward.amount}`);
+    setRecompensaGanada(true);
+  };
+
+  // Habilitar el botón del PDF cuando se gane la recompensa
+  useEffect(() => {
+    if (recompensaGanada) {
+      setBotonActivo(true);
+    }
+  }, [recompensaGanada]);
 
   const generarPDF = async () => {
     try {
@@ -89,6 +105,7 @@ const InformeSubvencionesAutonomos: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Informe de Subvenciones para Autónomos</Text>
 
+      {/* Mostrar los datos del informe */}
       <View style={styles.section}>
         <Text style={styles.label}>Alta en el RETA:</Text>
         <Text style={styles.value}>
@@ -121,10 +138,17 @@ const InformeSubvencionesAutonomos: React.FC = () => {
         <Text style={[styles.value, styles.resultado]}>{beneficioEstimado}</Text>
       </View>
 
-      {/* Botón para generar el PDF */}
-      <TouchableOpacity onPress={generarPDF} style={styles.boton}>
-        <Text style={styles.botonTexto}>Descargar Informe en PDF</Text>
-      </TouchableOpacity>
+      {/* Mostrar anuncio si no se ha ganado recompensa */}
+      {!recompensaGanada && (
+        <AnuncioRecompensado onRewardEarned={manejarRecompensa} />
+      )}
+
+      {/* Mostrar botón para generar PDF si ya se ganó recompensa */}
+      {botonActivo && (
+        <TouchableOpacity onPress={generarPDF} style={styles.boton}>
+          <Text style={styles.botonTexto}>Descargar Informe en PDF</Text>
+        </TouchableOpacity>
+      )}
 
       {/* Botón para regresar a la pantalla principal */}
       <TouchableOpacity
@@ -193,3 +217,4 @@ const styles = StyleSheet.create({
 });
 
 export default InformeSubvencionesAutonomos;
+

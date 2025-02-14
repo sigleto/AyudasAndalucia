@@ -17,7 +17,7 @@ const shareApp = async () => {
   try {
     const result = await Share.share({
       message:
-        "Descarga la app Ayudas Públicas 2025 y descubre todas las ayudas disponibles. ¡Haz clic aquí para descargarla! https://play.google.com/store/apps/details?id=com.sigleto.Ayudas",
+        "Descarga la app Ayudas Públicas Andalucía y descubre todas las ayudas disponibles. ¡Haz clic aquí para descargarla! https://play.google.com/store/apps/details?id=com.sigleto.AyudasAndalucia",
     });
     if (result.action === Share.dismissedAction) {
       Alert.alert("Compartir cancelado");

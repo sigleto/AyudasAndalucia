@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 import { useRoute, RouteProp } from "@react-navigation/native";
-
+import AnuncioRecompensado from '../Anuncios/AnuncioRecompensado';
 type RouteParams = {
   discapacidad: string;
   residencia: string;

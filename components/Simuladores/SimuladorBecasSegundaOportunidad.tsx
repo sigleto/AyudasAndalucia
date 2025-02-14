@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 type RootStackParamList = {
   Home: undefined;
   InformeBecasSegundaOportunidad: {
@@ -73,6 +73,7 @@ const SimuladorBecasSegundaOportunidad: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador Becas Segunda Oportunidad</Text>
 
       <Text>Edad:</Text>

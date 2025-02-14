@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 
 const SimuladorAyudasGuarderia: React.FC = () => {
   const [residencia, setResidencia] = useState<string>("");
@@ -29,6 +30,36 @@ const SimuladorAyudasGuarderia: React.FC = () => {
       return;
     }
 
+    if (
+      residencia.toUpperCase() !== "S" &&
+      residencia.toUpperCase() !== "N"
+    ) {
+      Alert.alert("Error", "Responde con 'S' o 'N' en la pregunta de residencia.");
+      return;
+    }
+
+    if (
+      menorTresAños.toUpperCase() !== "S" &&
+      menorTresAños.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre tener un hijo menor de tres años."
+      );
+      return;
+    }
+
+    if (
+      matriculado.toUpperCase() !== "S" &&
+      matriculado.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre si está matriculado en una guardería."
+      );
+      return;
+    }
+
     const ingresosNum = parseFloat(ingresosFamiliares);
     const hijosNum = parseInt(numeroHijos);
 
@@ -39,9 +70,9 @@ const SimuladorAyudasGuarderia: React.FC = () => {
 
     // Verificar requisitos
     if (
-      residencia.toLowerCase() === "si" &&
-      menorTresAños.toLowerCase() === "si" &&
-      matriculado.toLowerCase() === "si" &&
+      residencia.toUpperCase() === "S" &&
+      menorTresAños.toUpperCase() === "S" &&
+      matriculado.toUpperCase() === "S" &&
       ingresosNum <= hijosNum * 1.5 * 600 // Ejemplo: IPREM mensual multiplicado por número de hijos
     ) {
       // Calcular importe estimado basado en ingresos y número de hijos
@@ -68,6 +99,7 @@ const SimuladorAyudasGuarderia: React.FC = () => {
       );
     }
   };
+
   React.useEffect(() => {
     Alert.alert(
       "Aviso importante",
@@ -78,29 +110,30 @@ const SimuladorAyudasGuarderia: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador de Ayudas para Guardería</Text>
 
-      <Text>¿Resides y estás empadronado en Andalucía? (Sí/No):</Text>
+      <Text>¿Resides y estás empadronado en Andalucía? (S/N):</Text>
       <TextInput
         value={residencia}
         onChangeText={(text) => setResidencia(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Tienes un hijo/a menor de tres años? (Sí/No):</Text>
+      <Text>¿Tienes un hijo/a menor de tres años? (S/N):</Text>
       <TextInput
         value={menorTresAños}
         onChangeText={(text) => setMenorTresAños(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
-      <Text>¿Está matriculado en una guardería autorizada? (Sí/No):</Text>
+      <Text>¿Está matriculado en una guardería autorizada? (S/N):</Text>
       <TextInput
         value={matriculado}
         onChangeText={(text) => setMatriculado(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 

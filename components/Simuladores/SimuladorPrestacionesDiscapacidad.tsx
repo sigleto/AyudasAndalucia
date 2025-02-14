@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-
+import AnuncioInt from "../Anuncios/AnuncioIntersticial";
 type RootStackParamList = {
   Home: undefined;
   InformePrestacionesDiscapacidad: {
@@ -37,6 +37,17 @@ const SimuladorPrestacionesDiscapacidad: React.FC = () => {
       return;
     }
 
+    if (
+      residencia.toUpperCase() !== "S" &&
+      residencia.toUpperCase() !== "N"
+    ) {
+      Alert.alert(
+        "Error",
+        "Responde con 'S' o 'N' en la pregunta sobre residencia."
+      );
+      return;
+    }
+
     const discapacidadNum = parseFloat(discapacidad);
     const rentaNum = parseFloat(renta);
 
@@ -47,7 +58,7 @@ const SimuladorPrestacionesDiscapacidad: React.FC = () => {
 
     if (
       discapacidadNum >= 33 &&
-      residencia.toLowerCase() === "si" &&
+      residencia.toUpperCase() === "S" &&
       rentaNum <= 1.25
     ) {
       let importe = 0;
@@ -77,6 +88,7 @@ const SimuladorPrestacionesDiscapacidad: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <AnuncioInt />
       <Text style={styles.title}>Simulador de Prestaciones por Discapacidad</Text>
 
       <Text>Porcentaje de discapacidad (%):</Text>
@@ -88,11 +100,11 @@ const SimuladorPrestacionesDiscapacidad: React.FC = () => {
         style={styles.input}
       />
 
-      <Text>¿Resides en Andalucía? (Sí/No):</Text>
+      <Text>¿Resides en Andalucía? (S/N):</Text>
       <TextInput
         value={residencia}
         onChangeText={(text) => setResidencia(text.trim())}
-        placeholder="Ejemplo: Sí"
+        placeholder="Ejemplo: S"
         style={styles.input}
       />
 
