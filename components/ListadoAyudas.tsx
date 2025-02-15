@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Share,
   View,
   Text,
   TouchableOpacity,
@@ -10,6 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import AnuncioBan from "./Anuncios/AnuncioBanner";
+
 
 type RutasNavegacion =
   | "SubsidiosDesempleo"
@@ -109,9 +111,26 @@ export default function ListadoDeAyudas() {
     navigation.navigate(ruta);
   };
 
+  const shareApp = async () => {
+    try {
+      await Share.share({
+        message:
+          "Descarga la app Ayudas Públicas Andalucía y descubre todas las ayudas disponibles. ¡Haz clic aquí para descargarla! https://play.google.com/store/apps/details?id=com.sigleto.AyudasAndalucia",
+      });
+    } catch (error) {
+      console.error("Error al compartir", error);
+    }
+  };
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.titulo}>¿En qué ayuda estás interesado?</Text>
+      <TouchableOpacity onPress={shareApp} style={styles.shareIcon}>
+        <MaterialCommunityIcons
+          name="share-variant"
+          size={27}
+          color="#007BFF"
+        />
+         </TouchableOpacity>
       <View style={styles.ayudas}>
         {ayudas.map((ayuda) => (
           <TouchableOpacity
@@ -174,5 +193,12 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     textAlign: "left",
     textTransform: "capitalize",
+  },
+  shareIcon: {
+    position: "absolute",
+    right: 20,
+    top: 10,
+    fontSize: 20,
+    backgroundColor:"#c3fe4d"
   },
 });

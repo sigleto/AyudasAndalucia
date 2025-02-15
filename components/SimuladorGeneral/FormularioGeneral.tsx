@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { categories } from "./RequisitosGeneral";
 import {
+  Share,
   View,
   Text,
   TouchableOpacity,
@@ -10,6 +11,7 @@ import {
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useNavigation, CommonActions } from "@react-navigation/native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const FormularioGeneral: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<number | undefined>(
@@ -38,11 +40,26 @@ const FormularioGeneral: React.FC = () => {
       );
     }
   };
-
+const shareApp = async () => {
+    try {
+      await Share.share({
+        message:
+          "Descarga la app Ayudas Públicas Andalucía y descubre todas las ayudas disponibles. ¡Haz clic aquí para descargarla! https://play.google.com/store/apps/details?id=com.sigleto.AyudasAndalucia",
+      });
+    } catch (error) {
+      console.error("Error al compartir", error);
+    }
+  };
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Solicitud de Ayudas</Text>
-
+ <TouchableOpacity onPress={shareApp} style={styles.shareIcon}>
+        <MaterialCommunityIcons
+          name="share-variant"
+          size={27}
+          color="#007BFF"
+        />
+         </TouchableOpacity>
       <Text style={styles.label}>Categoría:</Text>
 
       <Picker
@@ -124,6 +141,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "white",
     fontWeight: "bold",
+  },
+  shareIcon: {
+    position: "absolute",
+    right: 20,
+    top: 10,
+    fontSize: 20,
+    backgroundColor:"#c3fe4d"
   },
 });
 

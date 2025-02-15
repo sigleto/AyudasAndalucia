@@ -20,7 +20,8 @@
         "foregroundImage": "./assets/images/icono.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.sigleto.AyudasAndalucia"
+      "package": "com.sigleto.AyudasAndalucia",
+      "permissions": ["com.google.android.gms.permission.AD_ID"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
