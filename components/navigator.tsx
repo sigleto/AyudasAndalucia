@@ -12,7 +12,7 @@ import FormularioGeneral from "./SimuladorGeneral/FormularioGeneral";
 import Presentacion1 from "./Presentacion/Presentacion1";
 
 //Listado de ayudas
-import ListadoDeAyudas from "./ListadoAyudas";
+import ListadoDeAyudas from "./ListadoDeAyudas";
 import AyudasAgricolas from "./Listado/AyudasAgricolas";
 import AyudasSociales from "./Listado/AyudasSociales";
 import AyudasVivienda from "./Listado/AyudasVivienda";
@@ -96,7 +96,7 @@ export function AyudasStack() {
     <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
     <Stack.Screen name="DescargoResponsabilidad" component={DescargoResponsabilidad} options={{ headerShown: false }} />
     <Stack.Screen name="PoliticaPrivacidad" component={PoliticaPrivacidad} options={{ headerShown: false }} />
-    <Stack.Screen name="ListadoAyudas" component={ListadoDeAyudas} options={{ headerShown: false }} />
+    
     <Stack.Screen name="SubsidiosDesempleo" component={SubsidiosDesempleo} options={{ headerShown: false }} />
     <Stack.Screen name="AyudasVivienda" component={AyudasVivienda} options={{ headerShown: false }} />
     <Stack.Screen name="AyudaDescendientes" component={AyudaDescendientes} options={{ headerShown: false }} />
@@ -258,13 +258,13 @@ export function PrincipalStack() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="FormularioGeneral"
+        name="FormularioGeneralP"
         component={FormularioGeneralStack}
         options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ListadoAyudas"
-        component={AyudasStack}
+        component={ListadoDeAyudas}
         options={{ headerShown: false }}
       />
 

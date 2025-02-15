@@ -5,8 +5,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 // Definir el tipo para las rutas de navegación
 type RootDrawerParamList = {
-  Home: undefined;
-  ListadoAyudas: undefined;
+ 
   Principal: undefined;
 };
 

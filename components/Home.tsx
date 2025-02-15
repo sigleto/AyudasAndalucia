@@ -8,13 +8,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 type RootDrawerParamList = {
   Home: undefined;
   ListadoAyudas: undefined;
-  FormularioGeneral: undefined;
+  FormularioGeneralP: undefined;
   AyudasStack: undefined;
 };
 
 type HomeScreenNavigationProp = DrawerNavigationProp<
   RootDrawerParamList,
-  "Home" | "FormularioGeneral"|"ListadoAyudas"
+  "Home" | "FormularioGeneralP"|"ListadoAyudas"
 >;
 
 const Home: React.FC = () => {
@@ -60,7 +60,7 @@ const Home: React.FC = () => {
       </TouchableOpacity>
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("FormularioGeneral")}
+        onPress={() => navigation.navigate("FormularioGeneralP")}
         style={styles.boton}
       >
         <Text style={styles.botonTexto}>SIMULADOR GENERAL</Text>
