@@ -1,12 +1,11 @@
 {
   "expo": {
-    "name": "AyudasAndalucia",
+    "name": "Ayudas Públicas Andalucía",
     "slug": "AyudasAndalucia",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -21,7 +20,10 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.sigleto.AyudasAndalucia",
-      "permissions": ["com.google.android.gms.permission.AD_ID"]
+      "permissions": [
+        "com.google.android.gms.permission.AD_ID"
+      ],
+      "predictiveBackGestureEnabled": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -30,10 +32,25 @@
       "eas": {
         "projectId": "3bd13dcc-f412-411b-bd43-78ee448a3d7d"
       }
-    }
-  }
-    ,
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-6921150380725872~1520025879"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 36,
+            "minSdkVersion": 24
+          }
+        }
+      ],
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-6921150380725872~1520025879",
+          "delayAppMeasurementInit": true
+        }
+      ]
+    ]
   }
 }
